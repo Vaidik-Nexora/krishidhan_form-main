@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krishidhan Agro - Join Us</title>
+    <!-- Google Fonts for modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1B4D1B;
+            --primary-light: #2c7a2c;
+            --accent: #1ABC9C;
+            --text-dark: #1e293b;
+            --text-gray: #64748b;
+            --bg-light: #f8fafc;
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: block; /* Changed from flex to prevent weird mobile stretching */
+        }
+
+        /* Split Screen Layout */
+        .split-layout {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        .image-section {
+            flex: 1.2;
+            background-image: url('static/images/bg_modern.png');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 60px;
+            color: white;
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(13, 33, 13, 0.9) 0%, rgba(27, 77, 27, 0.2) 100%);
+        }
+
+        .image-content {
+            position: relative;
+            z-index: 2;
+            max-width: 500px;
+        }
+
+        .brand-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+            letter-spacing: -1px;
+        }
+
+        .brand-subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        .form-section {
+            flex: 1;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 30px 60px;
+            position: relative;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.03);
+            /* overflow-y removed to prevent awkward nested scrolling on mobile */
+        }
+
+        .form-header {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .form-logo {
+            max-width: 220px;
+            height: auto;
+            margin-bottom: 5px;
+        }
+
+        .form-header h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .form-header p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+        }
+
+        /* Form Styles */
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 16px;
+        }
+
+        .form-col {
+            flex: 1;
+            min-width: 0; /* Prevents flex children from blowing out container width */
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 16px;
+        }
+        
+        /* Clear margin for row items */
+        .form-row .input-group {
+            margin-bottom: 0;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-gray);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .modern-input {
+            width: 100%;
+            padding: 10px 14px;
+            background-color: var(--bg-light);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+
+        .modern-input:focus {
+            outline: none;
+            background-color: white;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(27, 77, 27, 0.1);
+        }
+
+        .phone-wrapper {
+            display: flex;
+            gap: 10px;
+        }
+
+        .phone-code {
+            width: 70px;
+            flex-shrink: 0;
+            text-align: center;
+            padding: 10px 8px;
+        }
+        
+        #mobileNumber {
+            flex: 1;
+            min-width: 0;
+        }
+
+        select.modern-input {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            background-size: 14px;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            font-size: 1.05rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 5px;
+            box-shadow: 0 8px 15px rgba(27, 77, 27, 0.15);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 20px rgba(27, 77, 27, 0.25);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .address-group {
+            background-color: var(--bg-light);
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border);
+        }
+        
+        .address-group > label {
+            display: block;
+            margin-bottom: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .contact-footer {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            border-top: 1px solid var(--border);
+            padding-top: 15px;
+            line-height: 1.5;
+        }
+        
+        .contact-footer strong {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        /* Notifications */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 14px 20px;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateX(120%);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success { border-left: 4px solid #10b981; }
+        .toast.error { border-left: 4px solid #ef4444; }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .form-section { padding: 30px; }
+            .brand-title { font-size: 2.5rem; }
+            .form-logo { max-width: 180px; }
+        }
+
+        @media (max-width: 768px) {
+            .split-layout { 
+                display: block; /* Switch to block layout to avoid nested sizing weirdness */
+                min-height: 100vh;
+            }
+            .image-section {
+                height: 180px;
+                padding: 20px;
+            }
+            .brand-title { font-size: 1.8rem; }
+            .brand-subtitle { font-size: 0.95rem; display: none; }
+            .form-section {
+                padding: 25px 15px;
+                border-radius: 20px 20px 0 0;
+                margin-top: -20px;
+                z-index: 3;
+                overflow-y: visible; /* Restore native body scrolling */
+            }
+            .form-header h2 { font-size: 1.4rem; }
+            .form-row { flex-direction: column; gap: 0; }
+            .address-group { padding: 12px; }
+            .form-logo { max-width: 140px; margin-bottom: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="split-layout">
+        <div class="image-section" id="imageBg">
+            <div class="image-overlay"></div>
+            <div class="image-content">
+                <h1 class="brand-title">Krishidhan Agro</h1>
+                <p class="brand-subtitle">Growing the future, together. Register your details with our premium network.</p>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div class="form-header">
+                <img src="static/images/logo_transparent.png" alt="Krishidhan Logo" class="form-logo">
+                <h2>Registration Details</h2>
+                <p>Welcome! Please enter your information.</p>
+            </div>
+
+            <form id="leadForm">
+                <div class="form-row">
+                    <div class="form-col input-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" class="modern-input" placeholder="e.g. Rahul" required>
+                    </div>
+                    <div class="form-col input-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" class="modern-input" placeholder="e.g. Sharma" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-col input-group">
+                        <label for="businessType">Business Type</label>
+                        <select id="businessType" class="modern-input" required>
+                            <option value="" disabled selected>Select profile</option>
+                            <option value="Farmer">Farmer</option>
+                            <option value="Dealer">Dealer</option>
+                        </select>
+                    </div>
+
+                    <div class="form-col input-group">
+                        <label>Mobile Number</label>
+                        <div class="phone-wrapper">
+                            <input type="text" id="countryCode" class="modern-input phone-code" value="+91" required>
+                            <input type="tel" id="mobileNumber" class="modern-input" placeholder="10-digit #" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="address-group">
+                    <label>Location Details</label>
+                    
+                    <div class="form-row">
+                        <div class="form-col input-group" style="flex: 2;">
+                            <input type="text" id="streetAddress" class="modern-input" placeholder="Street Address" required>
+                        </div>
+                        <div class="form-col input-group" style="flex: 1;">
+                            <input type="text" id="city" class="modern-input" placeholder="City / District" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row" style="margin-bottom: 0;">
+                        <div class="form-col input-group">
+                            <select id="state" class="modern-input" required disabled>
+                                <option value="" disabled selected>Select State</option>
+                            </select>
+                        </div>
+                        <div class="form-col input-group">
+                            <select id="country" class="modern-input" required>
+                                <option value="" disabled selected>Loading...</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hidden system field -->
+                <input type="hidden" id="source_of_lead" value="Walkin Store - Krishidhan">
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    Submit Registration
+                </button>
+            </form>
+
+            <div class="contact-footer">
+                <strong>Krishidhan Store Jabalpur</strong><br>
+                📞 +91 9109123649 &nbsp; | &nbsp; ✉️ krishidhanjabalpur@kisansuvidha.com
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script>
+        let countryStateData = [];
+
+        async function loadCountries() {
+            try {
+                const response = await fetch('https://countriesnow.space/api/v0.1/countries/states');
+                const result = await response.json();
+                
+                if(!result.error) {
+                    countryStateData = result.data;
+                    const countrySelect = document.getElementById('country');
+                    countrySelect.innerHTML = '<option value="" disabled>Select Country</option>';
+                    
+                    countryStateData.forEach(country => {
+                        const option = document.createElement('option');
+                        option.value = country.name;
+                        option.textContent = country.name;
+                        countrySelect.appendChild(option);
+                    });
+                    
+                    // Set default to India
+                    countrySelect.value = 'India';
+                    loadStates('India');
+                    
+                    countrySelect.addEventListener('change', (e) => {
+                        loadStates(e.target.value);
+                    });
+                }
+            } catch (error) {
+                console.error("Failed to load countries:", error);
+                document.getElementById('country').innerHTML = '<option value="India">India</option>';
+            }
+        }
+
+        function loadStates(countryName) {
+            const stateSelect = document.getElementById('state');
+            stateSelect.innerHTML = '<option value="" disabled selected>Select State</option>';
+            
+            const selectedCountry = countryStateData.find(c => c.name === countryName);
+            
+            if(selectedCountry && selectedCountry.states && selectedCountry.states.length > 0) {
+                stateSelect.disabled = false;
+                selectedCountry.states.forEach(state => {
+                    const option = document.createElement('option');
+                    option.value = state.name;
+                    option.textContent = state.name;
+                    stateSelect.appendChild(option);
+                });
+                
+                // Automatically select Madhya Pradesh if India is selected
+                if (countryName === 'India') {
+                    Array.from(stateSelect.options).forEach(opt => {
+                        if (opt.value === 'Madhya Pradesh' || opt.value === 'Madhya pradesh') {
+                            stateSelect.value = opt.value;
+                        }
+                    });
+                }
+            } else {
+                const option = document.createElement('option');
+                option.value = "Other";
+                option.textContent = "Other / Not Applicable";
+                stateSelect.appendChild(option);
+                stateSelect.disabled = false;
+            }
+        }
+
+        // Initialize fetching on page load
+        document.addEventListener('DOMContentLoaded', loadCountries);
+
+        function showToast(message, type) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast show ' + type;
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+
+        document.getElementById('leadForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('submitBtn');
+            btn.innerHTML = 'Processing...';
+            btn.disabled = true;
+
+            const formData = {
+                first_name: document.getElementById('firstName').value.trim(),
+                last_name: document.getElementById('lastName').value.trim(),
+                business_type: document.getElementById('businessType').value,
+                mobile_number: document.getElementById('countryCode').value.trim() + document.getElementById('mobileNumber').value.trim(),
+                street_address: document.getElementById('streetAddress').value.trim(),
+                city: document.getElementById('city').value.trim(),
+                state: document.getElementById('state').value,
+                country: document.getElementById('country').value,
+                source_of_lead: document.getElementById('source_of_lead').value
+            };
+
+            try {
+                // Adjust port if necessary
+                const response = await fetch('/api/submit-lead', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    showToast('Successfully registered!', 'success');
+                    document.getElementById('leadForm').reset();
+                    // Restore defaults
+                    document.getElementById('countryCode').value = '+91';
+                    document.getElementById('country').value = 'India';
+                } else {
+                    throw new Error(result.detail || 'Failed to submit. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showToast(error.message, 'error');
+            } finally {
+                btn.innerHTML = 'Submit Registration';
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
