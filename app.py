@@ -61,6 +61,10 @@ def get_zoho_access_token():
         else:
             print("OAuth error:", data)
             raise ValueError("Failed to get access token from response.")
+            
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching Zoho access token: {e}")
+        raise ValueError("Network error during token exchange.")
 
 def create_books_walkin_record(mobile_number: str, submit_time: str, access_token: str):
     """
