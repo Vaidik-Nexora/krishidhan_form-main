@@ -84,7 +84,7 @@ def create_books_walkin_record(mobile_number: str, submit_time: str, access_toke
         print("❌ ERROR: ZOHO_ORG_ID is missing.")
         return
 
-    url = f"{ZOHO_BOOKS_API_BASE_URL}/custommodules/cm_walkin_time?organization_id={ZOHO_ORG_ID}"
+    url = f"{ZOHO_BOOKS_API_BASE_URL}/cm_walkin_time?organization_id={ZOHO_ORG_ID}"
     
     headers = {
         "Authorization": f"Zoho-oauthtoken {access_token}",
@@ -104,7 +104,8 @@ def create_books_walkin_record(mobile_number: str, submit_time: str, access_toke
         if response.status_code in [200, 201]:
             print(f"✅ Successfully created record in Zoho Books: {result.get('message', 'Success')}")
         else:
-            print(f"❌ Failed to create record in Zoho Books: {result}")
+            print(f"❌ Failed to create record in Zoho Books. Status: {response.status_code}")
+            print(f"   Response Body: {result}")
             
     except Exception as e:
         print(f"❌ Exception while creating record in Zoho Books: {e}")
@@ -116,6 +117,7 @@ async def submit_lead(lead_data: LeadFormModel, background_tasks: BackgroundTask
         raise HTTPException(status_code=500, detail="Authentication with Zoho failed.")
     
     # Capture submission time for Zoho Books
+    # Capture submission time for Zoho Books in standard format (YYYY-MM-DD HH:MM:SS)
     submit_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
     # Trigger Zoho Books record creation in background
