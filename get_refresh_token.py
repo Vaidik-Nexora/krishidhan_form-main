@@ -8,7 +8,7 @@ ZOHO_CLIENT_ID = os.getenv("ZOHO_CLIENT_ID")
 ZOHO_CLIENT_SECRET = os.getenv("ZOHO_CLIENT_SECRET")
 REDIRECT_URI = "https://www.zoho.com"
 
-SCOPE = "ZohoCRM.modules.ALL"
+SCOPE = "ZohoCRM.modules.ALL,ZohoBooks.fullaccess.all"
 
 def generate_auth_url():
     if not ZOHO_CLIENT_ID:
